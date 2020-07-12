@@ -8,7 +8,6 @@
 import UIKit
 
 struct k {
-    
     struct API {
         static let CurrentWeatherEndpoint = "https://api.openweathermap.org/data/2.5/group?id=\(CitiesIds)&units=metric&appid=\(Key)"
         static let CitiesIds = "\(Cities.Mendoza.rawValue),\(Cities.London.rawValue),\(Cities.Paris.rawValue),\(Cities.Moscow.rawValue),\(Cities.Santiago.rawValue),\(Cities.Tokyo.rawValue)"

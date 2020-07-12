@@ -21,7 +21,7 @@ class MainCoordinator: CoordinatorProtocol {
         navigationController.pushViewController(vc, animated: true)
     }
     
-    func navigateToWeatherDetail() {
+    func navigateToWeatherDetail(cityID: Int?) {
         
     }
 }

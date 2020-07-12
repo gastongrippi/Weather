@@ -7,5 +7,8 @@
 //
 
 protocol WeatherViewProtocol {
+    //MARK: Methods
     func reloadWeatherTable()
+    func showSpinnerIndicator()
+    func hideSpinnerIndicator()
 }

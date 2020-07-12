@@ -9,7 +9,10 @@
 import UIKit
 
 protocol CoordinatorProtocol {
+    //MARK: Properties
     var navigationController: UINavigationController { get set }
+    
+    //MARK: Methods
     func showWeatherView()
-    func navigateToWeatherDetail()
+    func navigateToWeatherDetail(cityID: Int?)
 }

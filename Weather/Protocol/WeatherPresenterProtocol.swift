@@ -7,7 +7,10 @@
 //
 
 protocol WeatherPresenterProtocol {
+    //MARK: Methods
     func loadCurrentWeather()
     func getCitiesCount() -> Int
     func getCityName(index: Int) -> String
+    func getCityTemperature(index: Int) -> String
+    func getCityID(index: Int) -> Int
 }

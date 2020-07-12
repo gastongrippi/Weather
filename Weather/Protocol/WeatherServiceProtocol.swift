@@ -9,5 +9,6 @@
 import Foundation
 
 protocol WeatherServiceProtocol {
+    //MARK: Methods
     func getCurrentWeather(endpoint: String, completion: @escaping ((Data) -> Void))
 }

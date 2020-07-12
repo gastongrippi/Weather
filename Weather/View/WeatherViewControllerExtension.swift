@@ -25,6 +25,16 @@ extension WeatherViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        var cityID:Int?
+        if (indexPath.section == 0) {
+            cityID = presenter?.getCityID(index:indexPath.row)
+        } else {
+            cityID = presenter?.getCityID(index:indexPath.row+1)
+        }
+        coordinator?.navigateToWeatherDetail(cityID: cityID)
+    }
 }
 
 
@@ -36,32 +46,29 @@ extension WeatherViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let count = presenter?.getCitiesCount() {
-            if (count == 0) {
-                return 0
-            } else {
-                switch section {
-                case 0:
-                    return 1
-                default:
-                    return count-1
-                }
-            }
-        } else {
+        guard let count = presenter?.getCitiesCount(), count != 0 else {
             return 0
+        }
+        switch section {
+        case 0:
+            return 1
+        default:
+            return count-1
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cityWeather")
+        var cell = tableView.dequeueReusableCell(withIdentifier: k.identifiers.WeatherCell)
+        cell = UITableViewCell(style: .value1, reuseIdentifier: k.identifiers.WeatherCell)
         
         if (indexPath.section == 0) {
             cell?.textLabel?.text = presenter?.getCityName(index: indexPath.row)
+            cell?.detailTextLabel?.text = presenter?.getCityTemperature(index: indexPath.row)
         } else {
             cell?.textLabel?.text = presenter?.getCityName(index: indexPath.row+1)
+            cell?.detailTextLabel?.text = presenter?.getCityTemperature(index: indexPath.row+1)
         }
         return cell!
     }
-    
-    
+
 }

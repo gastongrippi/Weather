@@ -25,6 +25,7 @@ class WeatherPresenter: WeatherPresenterProtocol {
     
     //MARK: WeatherPresenterProtocol
     func loadCurrentWeather() {
+        viewDelegate?.showSpinnerIndicator()
         service?.getCurrentWeather(endpoint: k.API.CurrentWeatherEndpoint, completion: { [weakSelf = self] response in
             let jsonResult = JSON(response as Any)
             let jsonWeather = jsonResult["list"].arrayObject ?? []
@@ -38,14 +39,23 @@ class WeatherPresenter: WeatherPresenterProtocol {
                 }
             }
             weakSelf.viewDelegate?.reloadWeatherTable()
+            weakSelf.viewDelegate?.hideSpinnerIndicator()
         })
     }
     
     func getCitiesCount() -> Int {
-        return weatherList.count
+        weatherList.count
     }
     
     func getCityName(index: Int) -> String {
         weatherList[index].cityName
+    }
+    
+    func getCityTemperature(index: Int) -> String {
+        String("\(weatherList[index].temperature)ºC")
+    }
+    
+    func getCityID(index: Int) -> Int {
+        weatherList[index].id
     }
 }

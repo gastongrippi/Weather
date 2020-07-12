@@ -17,10 +17,11 @@ class WeatherViewController: UIViewController {
     var weatherTable = UITableView(frame: .zero)
 
     //MARK: Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = k.ScrenTitles.WeatherListTitle
-        weatherTable.register(UITableViewCell.self, forCellReuseIdentifier: "cityWeather")
+        weatherTable.register(UITableViewCell.self, forCellReuseIdentifier: k.identifiers.WeatherCell)
         setDelegates()
         setConstraints()
         presenter?.loadCurrentWeather()
@@ -44,6 +45,14 @@ class WeatherViewController: UIViewController {
 
 //MARK: WeatherViewProtocol
 extension WeatherViewController: WeatherViewProtocol {
+    func showSpinnerIndicator() {
+        showSpinner(onView: self.view)
+    }
+    
+    func hideSpinnerIndicator() {
+        removeSpinner()
+    }
+    
     func reloadWeatherTable() {
         weatherTable.reloadData()
     }
