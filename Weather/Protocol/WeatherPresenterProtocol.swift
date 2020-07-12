@@ -7,5 +7,7 @@
 //
 
 protocol WeatherPresenterProtocol {
-    
+    func loadCurrentWeather()
+    func getCitiesCount() -> Int
+    func getCityName(index: Int) -> String
 }

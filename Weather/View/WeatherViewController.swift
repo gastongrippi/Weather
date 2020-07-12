@@ -7,15 +7,44 @@
 //
 
 import UIKit
+import SnapKit
 
 class WeatherViewController: UIViewController {
+    
+    //MARK: Properties
     weak var coordinator: MainCoordinator?
     var presenter: WeatherPresenterProtocol?
+    var weatherTable = UITableView(frame: .zero)
 
-
+    //MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = k.ScrenTitles.WeatherListTitle
+        weatherTable.register(UITableViewCell.self, forCellReuseIdentifier: "cityWeather")
+        setDelegates()
+        setConstraints()
+        presenter?.loadCurrentWeather()
     }
-
+    
+    
+    //MARK: Private methods
+    private func setDelegates() {
+        presenter = WeatherPresenter(delegate: self)
+        weatherTable.delegate = self
+        weatherTable.dataSource = self
+    }
+    
+    private func setConstraints() {
+        view.addSubview(weatherTable)
+        weatherTable.snp.makeConstraints { (make) in
+            make.edges.equalTo(view)
+        }
+    }
 }
 
+//MARK: WeatherViewProtocol
+extension WeatherViewController: WeatherViewProtocol {
+    func reloadWeatherTable() {
+        weatherTable.reloadData()
+    }
+}
